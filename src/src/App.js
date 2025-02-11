@@ -45,40 +45,43 @@ const Button = styled.button`
   }
 `;
 
-const LoveLetter = styled.div`
+const Card = styled.div`
   background: white;
-  color: #ff69b4;
   padding: 20px;
-  border-radius: 12px;
-  max-width: 400px;
-  margin-top: 20px;
-  box-shadow: 0px 0px 15px rgba(255, 105, 180, 0.3);
-  opacity: ${(props) => (props.show ? 1 : 0)};
-  transform: ${(props) => (props.show ? "translateY(0)" : "translateY(-20px)")};
-  transition: all 0.5s ease-in-out;
+  border-radius: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 500px; /* Prevents it from getting too wide */
+  width: 90%;
+  overflow: hidden;
 `;
 
-function App() {
-  const [showLetter, setShowLetter] = useState(false);
+const Image = styled.img`
+  width: 100%;
+  max-height: 400px; /* Prevents the image from being too tall */
+  object-fit: cover; /* Ensures it scales properly without stretching */
+  border-radius: 15px;
+`;
+
+const App = () => {
+  const [showImage, setShowImage] = useState(false);
   const { width, height } = useWindowSize();
 
   return (
     <Container>
-      {showLetter && <Confetti width={width} height={height} />}
+      {showImage && <Confetti width={width} height={height} />}
       <h1>Happy Valentine's Day, My Love! ❤️</h1>
       <Heart>💖💘💝</Heart>
       <p>I made this just for you! Click the button below for a surprise.</p>
-      <Button onClick={() => setShowLetter(true)}>Click Me 💕</Button>
+      <Button onClick={() => setShowImage(true)}>Click Me 💕</Button>
 
-      <LoveLetter show={showLetter}>
-        <h2>Dear Love,</h2>
-        <p>
-          You make my world brighter every day! Thank you for being my happiness,
-          my comfort, and my best friend. I love you more than words can say! 💖
-        </p>
-      </LoveLetter>
+      {showImage && (
+        <Card>
+          <Image src={`${process.env.PUBLIC_URL}/us.jpg`} alt="Us Together" />
+        </Card>
+      )}
     </Container>
   );
-}
+};
 
 export default App;
